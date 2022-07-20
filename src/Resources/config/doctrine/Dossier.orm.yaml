@@ -1,0 +1,7 @@
+App\Entity\Dossier:
+    type: entity
+    # ...
+    oneToMany:
+        produit:
+            targetEntity: App\Entity\Produit
+            cascade:      [persist]

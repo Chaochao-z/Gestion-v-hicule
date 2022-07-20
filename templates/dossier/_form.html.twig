@@ -1,0 +1,71 @@
+{{ form_start(form) }}
+
+    {{form_row(form.daterdv) }}
+
+    <div class="form-group">
+        {{form_row(form.nomclient) }}
+        {{form_row(form.prenomclient) }}
+        {{form_row(form.telephone) }}
+        {{form_row(form.email) }}
+        {{form_row(form.marque) }}
+        {{form_row(form.modele) }}
+        {{form_row(form.immatriculation) }}
+    </div>
+    
+
+    {{form_row(form.remarque) }}
+
+    
+    <ul class="produit"
+    data-index="{{ form.produits|length > 0 ? form.produits|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.produits.vars.prototype)|e('html_attr') }}"
+    ></ul>
+    <ul class="produit"
+    data-index="0"
+    data-prototype="&lt;div&gt;&lt;label class=&quot; required&quot;&gt;__name__&lt;/label&gt;&lt;div id=&quot;dossier_produits___name__&quot;&gt;&lt;div&gt;&lt;label for=&quot;dossier_produits___name___name&quot; class=&quot; required&quot;&gt;Name&lt;/label&gt;&lt;input type=&quot;text&quot; id=&quot;dossier_produits___name___name&quot; name=&quot;dossier[produits][__name__][name]&quot; required=&quot;required&quot; maxlength=&quot;255&quot; /&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;"
+    ></ul>
+
+    <button type="button" class="add_item_link" data-collection-holder-class="produit">Add a produit</button>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+<script>
+
+const addFormToCollection = (e) => {
+  const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+  const item = document.createElement('li');
+
+  item.innerHTML = collectionHolder
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      collectionHolder.dataset.index
+    );
+
+  collectionHolder.appendChild(item);
+
+  collectionHolder.dataset.index++;
+};
+
+document
+  .querySelectorAll('.add_item_link')
+  .forEach(btn => {
+      btn.addEventListener("click", addFormToCollection)
+  });
+
+  function add(){
+      var new_chq_no = parseInt($('#total_chq').val())+1;
+      var new_input="<input type='text' id='new_"+new_chq_no+"'>";
+      $('#new_chq').append(new_input);
+      $('#total_chq').val(new_chq_no)
+    }
+    function remove(){
+      var last_chq_no = $('#total_chq').val();
+      if(last_chq_no>1){
+        $('#new_'+last_chq_no).remove();
+        $('#total_chq').val(last_chq_no-1);
+      }
+    }
+</script>

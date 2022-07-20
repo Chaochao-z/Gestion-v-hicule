@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dossier{% endblock %}
+
+{% block body %}
+    <h1>Dossier Réference : {{ dossier.id }}</h1>
+    {% if dossier.status == 1 %}
+        <button type="button" class="btn btn-outline-success"><a style="text-decoration:none;color:white;" href="{{ path('dossier_terminer', {'id': dossier.id}) }}">Livrer Véhicule</a></button>
+    {% else %}
+        <button type="button" class="btn btn-outline-info"><a style="text-decoration:none;color:white;" href="{{ path('dossier_retour', {'id': dossier.id}) }}">Retourner en atelier</a></button>
+    {% endif %}
+
+    <div class="card bg-light mb-3" style="width:1200px;">
+        <div class="card-header">
+            Info Client
+        </div>
+        <div class="card-body">
+            <div style="display:flex;">
+                <div style="width:49%;margin:0;">
+                    <h4>
+                        <small class="text-muted">Nom Client : </small>
+                        {{ dossier.nomclient }}
+                    </h4>
+                    <h4>
+                        <small class="text-muted">Téléphone : </small>
+                        {{ dossier.telephone }}
+                    </h4>
+                </div>
+                <div style="width:49%;margin:0;">
+                    <h4>
+                        <small class="text-muted">Prénom Client : </small>
+                        {{ dossier.prenomclient }}
+                    </h4>
+                    <h4>
+                        <small class="text-muted">Email : </small>
+                        {{ dossier.email }}
+                    </h4>
+                </div>
+            </div>
+            {# <h4 class="card-title"><small class="text-muted">Nom Client</small> Nom client</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
+        </div>
+    </div>
+    <div class="card bg-light mb-3" style="width:1200px;">
+        <div class="card-header">
+            Info Véhicule
+        </div>
+        <div class="card-body">
+            <div style="display:flex;">
+                <div style="width:49%;margin:0;">
+                    <h4>
+                        <small class="text-muted">Immatriculation : </small>
+                        {{ dossier.immatriculation }}
+                    </h4>
+                    <h4>
+                        <small class="text-muted">Date de RDV : </small>
+                        {{ dossier.daterdv ? dossier.daterdv|date('Y-m-d H:i:s') : '' }}
+                    </h4>
+                </div>
+                <div style="width:49%;margin:0;">
+                    <h4>
+                        <small class="text-muted">Marque : </small>
+                        {{ dossier.marque }}
+                    </h4>
+                    <h4>
+                        <small class="text-muted">Modèle : </small>
+                        {{ dossier.modele }}
+                    </h4>
+                </div>
+            </div>
+            {# <h4 class="card-title"><small class="text-muted">Nom Client</small> Nom client</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
+        </div>
+    </div>
+    <div class="card bg-light mb-3" style="width:1200px;">
+        <div class="card-header">
+            Travaux à effectuer
+        </div>
+        <div class="card-body">
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Nom Produit</th>
+                    <th scope="col">Coût Pièce</th>
+                    <th scope="col">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in dossier.produits %}
+                        <tr class="table-secondary">
+                            <th scope="row">{{ item.name }}</th>
+                            <td>{{ item.CoutPiece }}€</td>
+                            <td>{{ item.prix }}€</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>   
+            <table>
+            <h5>Total Pièces : {{ tt_cout_piece }}€</h5>
+            <h5>Total TTC : {{ tt_prix }}€</h5>
+            <h5>Total Bénéfice : {{ tt_prix - tt_cout_piece }}€</h5>
+            {# <h4 class="card-title"><small class="text-muted">Nom Client</small> Nom client</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
+        </div>
+    </div>
+
+{% endblock %}

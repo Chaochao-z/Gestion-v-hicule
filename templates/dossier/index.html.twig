@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tous les dossiers{% endblock %}
+{% block body %}
+<h1>Tous les dossiers  </h1>
+<style>
+.ahref:hover{
+    background-color:black;
+    color:green;
+}
+</style>
+{% for dossier in dossiers %}
+    <div style="display:flex; flex-direction:row;flex-wrap:wrap ">
+        {% if dossier.status != 2 %}
+            <div style="margin:30px;">
+                <a class="ahref" href="{{ path('app_dossier_show', {'id': dossier.id}) }}" style="text-decoration: none;">
+                    <div class="card bg-light mb-3" style="max-width: 20rem;">
+                        <div class="card-header"> {{ dossier.immatriculation }}</div>
+                        <div class="card-body">
+                            <h4 class="card-title">{{ dossier.marque }} {{ dossier.modele }}</h4>
+                            <h5 class="card-title">{{ dossier.daterdv ? dossier.daterdv|date('Y-m-d H:i:s') : '' }} </h4>
+                            {% for item in dossier.produits %}
+                                <p> {{ item.name }} : {{ item.prix }}€ </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
+
+{% endfor %}
+{% endblock %}
