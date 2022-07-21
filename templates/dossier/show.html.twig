@@ -9,6 +9,8 @@
     {% else %}
         <button type="button" class="btn btn-outline-info"><a style="text-decoration:none;color:white;" href="{{ path('dossier_retour', {'id': dossier.id}) }}">Retourner en atelier</a></button>
     {% endif %}
+    <button type="button" class="btn btn-outline-info"><a style="text-decoration:none;color:white;" href="{{ path('app_dossier_edit', {'id': dossier.id}) }}">Modifier</a></button>
+
 
     <div class="card bg-light mb-3" style="width:1200px;">
         <div class="card-header">
