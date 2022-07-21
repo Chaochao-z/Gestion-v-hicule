@@ -86,7 +86,8 @@
                     <th scope="col">Nom Produit</th>
                     <th scope="col">Coût Pièce</th>
                     <th scope="col">Prix</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Supprimer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,6 +96,7 @@
                             <th scope="row">{{ item.name }}</th>
                             <td>{{ item.CoutPiece }}€</td>
                             <td>{{ item.prix }}€</td>
+                            <td> <button class="btn"><a href="{{ path('app_produit_edit', {'id': item.id}) }}">edit</a></button></td>
                             <td>{{ include('dossier/_delete_produit.html.twig') }}</td>
                         </tr>
                     {% endfor %}
