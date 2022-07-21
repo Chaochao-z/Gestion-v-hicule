@@ -4,11 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Repository\DossierRepository;
 use App\Repository\ProduitRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/produit')]
 class ProduitController extends AbstractController
@@ -22,16 +23,21 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProduitRepository $produitRepository): Response
+    public function new(Request $request, ProduitRepository $produitRepository, DossierRepository $dossierRepository): Response
     {
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if( isset($_GET['dossier']))
+            {
+                $dossier = $dossierRepository->find($_GET['dossier']);
+                $produit->setDossier($dossier);
+            }
             $produitRepository->add($produit, true);
 
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dossier_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('produit/new.html.twig', [

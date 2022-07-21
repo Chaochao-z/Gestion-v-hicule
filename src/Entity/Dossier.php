@@ -43,7 +43,7 @@ class Dossier
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $remarque = null;
 
-    #[ORM\OneToMany(mappedBy: 'dossier', targetEntity: Produit::class, cascade:['persist'])]
+    #[ORM\OneToMany(mappedBy: 'dossier', targetEntity: Produit::class, cascade:['persist','remove'])]
     private Collection $produits;
 
     #[ORM\Column]

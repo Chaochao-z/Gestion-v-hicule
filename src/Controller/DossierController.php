@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Dossier;
 use App\Entity\Produit;
 use App\Form\DossierType;
+use App\Form\ProduitType;
 use App\Repository\DossierRepository;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -132,4 +134,35 @@ class DossierController extends AbstractController
 
         return $this->redirectToRoute('app_dossier_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('produit/{id}', name: 'dossier_produit_delete', methods: ['POST'])]
+    public function produitdelete(Request $request, Produit $produit, ProduitRepository $produitRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
+            $produitRepository->remove($produit, true);
+        }
+
+        return $this->redirectToRoute('app_dossier_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/newproduit', name: 'dossier_new_produit', methods: ['GET'])]
+    public function dossier_new_produit(Request $request, Dossier $dossier): Reponse
+    {
+        $produit = new Produit();
+        $form = $this->createForm(ProduitType::class, $produit);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $produit->setDossier($dossier);
+            $produitRepository->add($produit, true);
+
+            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('produit/new.html.twig', [
+            'produit' => $produit,
+            'form' => $form,
+        ]);
+    }
+
 }

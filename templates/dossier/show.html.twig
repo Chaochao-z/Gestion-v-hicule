@@ -75,6 +75,8 @@
     <div class="card bg-light mb-3" style="width:1200px;">
         <div class="card-header">
             Travaux à effectuer
+            <button type="button" class="btn btn-outline-primary"><a style="text-decoration:none;color:white;" href="{{ path('app_produit_new', {'dossier': dossier.id}) }}">Ajouter un produit</a></button>
+
         </div>
         <div class="card-body">
             
@@ -84,6 +86,7 @@
                     <th scope="col">Nom Produit</th>
                     <th scope="col">Coût Pièce</th>
                     <th scope="col">Prix</th>
+                    <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,6 +95,7 @@
                             <th scope="row">{{ item.name }}</th>
                             <td>{{ item.CoutPiece }}€</td>
                             <td>{{ item.prix }}€</td>
+                            <td>{{ include('dossier/_delete_produit.html.twig') }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>   
@@ -103,5 +107,6 @@
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> #}
         </div>
     </div>
+    {{ include('dossier/_delete_form.html.twig') }}
 
 {% endblock %}
