@@ -37,7 +37,7 @@ class DossierController extends AbstractController
     public function dossier_livrer(DossierRepository $dossierRepository): Response
     {
 
-        return $this->render('dossier/dossierencours.html.twig', [
+        return $this->render('dossier/dossierlivre.html.twig', [
             'dossiers' => $dossierRepository->findBy(['status' => 3], ['daterdv' => 'DESC']),
         ]);
     }
