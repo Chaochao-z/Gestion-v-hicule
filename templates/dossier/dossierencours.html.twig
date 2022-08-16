@@ -8,8 +8,9 @@
     color:green;
 }
 </style>
-{% for dossier in dossiers %}
     <div style="display:flex; flex-direction:row;flex-wrap:wrap ">
+{% for dossier in dossiers %}
+
         {% if dossier.status != 2 %}
             <div style="margin:30px;">
                 <a class="ahref" href="{{ path('app_dossier_show', {'id': dossier.id}) }}" style="text-decoration: none;">
@@ -24,8 +25,8 @@
                         </div>
                     </div>
                 </a>
-            </div>
-        {% endif %}
 
+        {% endif %}
+    </div>
 {% endfor %}
 {% endblock %}
