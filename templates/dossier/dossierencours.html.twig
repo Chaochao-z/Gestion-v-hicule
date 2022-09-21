@@ -18,7 +18,7 @@
                         <div class="card-header"> {{ dossier.immatriculation }}</div>
                         <div class="card-body">
                             <h4 class="card-title">{{ dossier.marque }} {{ dossier.modele }}</h4>
-                            <h5 class="card-title">{{ dossier.daterdv ? dossier.daterdv|date('Y-m-d H:i:s') : '' }} </h4>
+                            <h4 class="card-title">{{ dossier.daterdv ? dossier.daterdv|date('Y-m-d H:i:s') : '' }} </h4>
                             {% for item in dossier.produits %}
                                 <p> {{ item.name }} : {{ item.prix }}€ </p>
                             {% endfor %}
