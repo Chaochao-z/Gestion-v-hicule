@@ -20,16 +20,16 @@ class DossierController extends AbstractController
     #[Route('/', name: 'app_dossier_index', methods: ['GET'])]
     public function index(DossierRepository $dossierRepository): Response
     {
-        return $this->render('dossier/index.html.twig', [
-            'dossiers' => $dossierRepository->findBy([],['daterdv' => 'ASC']),
+        return $this->render('dossier/dossierencours.html.twig', [
+            'dossiers' => $dossierRepository->findBy(['status' => 1],['daterdv' => 'ASC']),
         ]);
     }
 
-    #[Route('/encours', name: 'dossier_encours', methods: ['GET'])]
+    #[Route('/termine', name: 'dossier_termine', methods: ['GET'])]
     public function dossier_encours(DossierRepository $dossierRepository): Response
     {
-        return $this->render('dossier/dossierencours.html.twig', [
-            'dossiers' => $dossierRepository->findBy(['status' => 1],['daterdv' => 'ASC']),
+        return $this->render('dossier/index.html.twig', [
+            'dossiers' => $dossierRepository->findBy([],['daterdv' => 'ASC']),
         ]);
     }
 
