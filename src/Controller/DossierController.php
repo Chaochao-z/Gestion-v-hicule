@@ -47,7 +47,7 @@ class DossierController extends AbstractController
     {
         $dossier->setStatus(3);
         $entityManager->flush();
-        return $this->redirectToRoute("dossier_encours", [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute("app_dossier_index", [], Response::HTTP_SEE_OTHER);
 
         // $referer = $_SERVER['HTTP_REFERER'];
         // return $this->redirect($referer);
@@ -58,7 +58,7 @@ class DossierController extends AbstractController
     {
         $dossier->setStatus(1);
         $entityManager->flush();
-        return $this->redirectToRoute("dossier_encours", [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute("app_dossier_index", [], Response::HTTP_SEE_OTHER);
 
         // $referer = $_SERVER['HTTP_REFERER'];
         // return $this->redirect($referer);
