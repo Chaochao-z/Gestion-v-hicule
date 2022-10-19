@@ -146,7 +146,7 @@ class DossierController extends AbstractController
     }
 
     #[Route('/{id}/newproduit', name: 'dossier_new_produit', methods: ['GET'])]
-    public function dossier_new_produit(Request $request, Dossier $dossier): Reponse
+    public function dossier_new_produit(Request $request, Dossier $dossier, ProduitRepository $produitRepository ): Response
     {
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
